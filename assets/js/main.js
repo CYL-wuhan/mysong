@@ -182,17 +182,15 @@
         );
         var img = node.querySelector('.thumb');
         if (img) img.src = m.cover || 'assets/img/painting-1.svg';
-        var slot = node.querySelector('.audio-slot');
+         var slot = node.querySelector('.audio-slot');
         if (slot) {
           if (m.src) {
-            // MP4/WebM 等用 <video> 呈现（可带画面），其余用 <audio>
-            var media = isVideoFile(m.src)
-              ? document.createElement('video')
-              : document.createElement('audio');
+            var isVid = /\.(mp4|webm|mov|m4v|ogv)$/i.test(m.src);
+            var media = isVid ? document.createElement('video') : document.createElement('audio');
             media.controls = true;
             media.preload = 'none';
             media.src = m.src;
-            media.setAttribute('aria-label', m.title + (isVideoFile(m.src) ? ' 观看' : ' 试听'));
+            media.setAttribute('aria-label', m.title + (isVid ? ' 观看' : ' 试听'));
             slot.appendChild(media);
           } else {
             var note = document.createElement('p');
