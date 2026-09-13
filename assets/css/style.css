@@ -194,6 +194,7 @@ img { max-width: 100%; display: block; }
 .card .meta { color: var(--text-soft); font-size: 13px; margin: 0 0 10px; }
 .card .desc { color: var(--text-soft); font-size: 14px; margin: 0; }
 .card audio { width: 100%; margin-top: 12px; }
+.card video { width: 100%; margin-top: 12px; border-radius: 12px; background: #000; aspect-ratio: 16 / 9; }
 .placeholder-note {
   margin-top: 12px;
   font-size: 13px;

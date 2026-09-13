@@ -2,7 +2,7 @@
   "profile": {
     "name": "陈熠乐",
     "title": "独立音乐人 · 绘画爱好者",
-    "avatar": "assets/img/avatar.svg",
+    "avatar": "assets/img/avatar.png",
     "tagline": "用旋律记录情绪，用画笔留住光影。",
     "bio": "我是陈熠乐，一名即将毕业的武汉英中学生。平日里喜欢写歌、画画，把生活里细碎的灵感收进作品里。这里收录了我的日常创作——不定时更新，欢迎随意逛逛。",
     "contacts": [
@@ -22,8 +22,8 @@
     {
       "title": "老人与海",
       "date": "2026-06",
-      "cover": "assets/img/painting-2.svg",
-      "src": "",
+      "cover": "assets/img/painting-2.png",
+      "src": "assets/audio/9-14.mp4",
       "description": "一段简单的钢琴循环，像下雨后天台上的水汽慢慢散开。"
     },
     {

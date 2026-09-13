@@ -102,6 +102,8 @@
     return t.content.firstChild;
   }
   function isArr(v) { return Object.prototype.toString.call(v) === '[object Array]'; }
+  // 判断是否视频文件（MP4/WebM 等需用 <video> 呈现，而非 <audio>）
+  function isVideoFile(src) { return /\.(mp4|webm|mov|m4v|ogv)$/i.test(src || ''); }
 
   // 给作品卡片绑定「💬 留言」展开/收起
   function attachComments(cardNode, term) {
@@ -183,12 +185,15 @@
         var slot = node.querySelector('.audio-slot');
         if (slot) {
           if (m.src) {
-            var audio = document.createElement('audio');
-            audio.controls = true;
-            audio.preload = 'none';
-            audio.src = m.src;
-            audio.setAttribute('aria-label', m.title + ' 试听');
-            slot.appendChild(audio);
+            // MP4/WebM 等用 <video> 呈现（可带画面），其余用 <audio>
+            var media = isVideoFile(m.src)
+              ? document.createElement('video')
+              : document.createElement('audio');
+            media.controls = true;
+            media.preload = 'none';
+            media.src = m.src;
+            media.setAttribute('aria-label', m.title + (isVideoFile(m.src) ? ' 观看' : ' 试听'));
+            slot.appendChild(media);
           } else {
             var note = document.createElement('p');
             note.className = 'placeholder-note';
