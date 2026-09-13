@@ -81,6 +81,7 @@ npx serve .
 ### 方案 B：Netlify 连接 Git 仓库（★ 用网页后台 /admin 必选）
 
 > 这是能让你「登录后台、点几下就上传音乐和图片」的部署方式。
+> 📘 超详细带图分步教程见 **[Netlify部署详细指南.md](Netlify部署详细指南.md)**（每一步都标了按钮位置和该填什么）。
 
 1. 把本项目推到 GitHub 仓库（新建仓库，把文件夹内容上传进去）。
 2. 打开 [app.netlify.com](https://app.netlify.com) → **Add new site → Import an existing project** → 选择你的 GitHub 仓库。
