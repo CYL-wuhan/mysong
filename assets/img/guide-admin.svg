@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="460" viewBox="0 0 680 460" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="680" height="460" fill="#f7f7fb"/>
+  <rect x="0" y="0" width="680" height="44" fill="#ececf3"/>
+  <rect x="16" y="12" width="440" height="20" rx="10" fill="#fff" stroke="#d9d9e3"/>
+  <text x="30" y="26" font-size="13" fill="#5a5a72">你的站点.netlify.app/admin</text>
+  <rect x="24" y="64" width="632" height="170" rx="14" fill="#fff" stroke="#e3e3ee"/>
+  <text x="48" y="100" font-size="17" font-weight="700" fill="#1a1a2e">Welcome to Netlify CMS</text>
+  <rect x="48" y="120" width="320" height="44" rx="8" fill="#6d5dfc"/>
+  <text x="208" y="147" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Continue with Netlify Identity</text>
+  <text x="48" y="190" font-size="12" fill="#8a8a9a">点完后去邮箱收魔法链接，点开即进入后台（无需记密码）。</text>
+  <text x="24" y="270" font-size="15" font-weight="700" fill="#1a1a2e">进入后台后（顶栏 Publish 发布）</text>
+  <rect x="24" y="286" width="632" height="160" rx="14" fill="#fff" stroke="#e3e3ee"/>
+  <rect x="48" y="306" width="240" height="120" rx="8" fill="#fafaff" stroke="#e3e3ee"/>
+  <text x="64" y="330" font-size="13" font-weight="700" fill="#1a1a2e">站点内容</text>
+  <text x="64" y="352" font-size="12" fill="#5a5a72">• 个人介绍</text>
+  <text x="64" y="372" font-size="12" fill="#5a5a72">• 音乐作品</text>
+  <text x="64" y="392" font-size="12" fill="#5a5a72">• 绘画作品</text>
+  <text x="64" y="412" font-size="12" fill="#5a5a72">• 游戏机制·兴趣社介绍</text>
+  <text x="64" y="432" font-size="12" fill="#5a5a72">• 游戏机制作品</text>
+  <rect x="316" y="306" width="120" height="34" rx="8" fill="#f3f3fa" stroke="#e3e3ee"/>
+  <text x="376" y="328" font-size="13" fill="#1a1a2e" text-anchor="middle">＋ 新增</text>
+  <rect x="496" y="306" width="120" height="34" rx="8" fill="#2ea043"/>
+  <text x="556" y="328" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Publish</text>
+  <text x="316" y="372" font-size="12" fill="#8a8a9a">选一个集合 → 新增 → 填信息/传文件 →</text>
+  <text x="316" y="392" font-size="12" fill="#8a8a9a">点 Publish 即自动重新部署上线。</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="360" viewBox="0 0 680 360" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="680" height="360" fill="#f7f7fb"/>
+  <text x="24" y="40" font-size="18" font-weight="700" fill="#1a1a2e">开启后台登录（两步，缺一不可）</text>
+  <rect x="24" y="64" width="300" height="264" rx="14" fill="#fff" stroke="#e3e3ee"/>
+  <text x="48" y="98" font-size="15" font-weight="700" fill="#1a1a2e">① Site configuration</text>
+  <text x="48" y="122" font-size="14" fill="#5a5a72">→ Identity</text>
+  <rect x="48" y="150" width="200" height="44" rx="8" fill="#6d5dfc"/>
+  <text x="148" y="177" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Enable Identity</text>
+  <text x="48" y="226" font-size="12" fill="#8a8a9a">开启后，你可用</text>
+  <text x="48" y="244" font-size="12" fill="#8a8a9a">邮箱魔法链接登录后台。</text>
+  <text x="48" y="288" font-size="12" fill="#8a8a9a">（默认即开，无需额外配置）</text>
+  <rect x="356" y="64" width="300" height="264" rx="14" fill="#fff" stroke="#e3e3ee"/>
+  <text x="380" y="98" font-size="15" font-weight="700" fill="#1a1a2e">② Identity</text>
+  <text x="380" y="122" font-size="14" fill="#5a5a72">→ Services → Git Gateway</text>
+  <rect x="380" y="150" width="220" height="44" rx="8" fill="#6d5dfc"/>
+  <text x="490" y="177" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Enable Git Gateway</text>
+  <text x="380" y="226" font-size="12" fill="#8a8a9a">让后台能把你的修改</text>
+  <text x="380" y="244" font-size="12" fill="#8a8a9a">写回 GitHub 并触发部署。</text>
+  <text x="380" y="288" font-size="12" fill="#8a8a9a">（不开这项，/admin 无法保存）</text>
+</svg>

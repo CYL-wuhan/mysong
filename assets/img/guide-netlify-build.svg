@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="460" viewBox="0 0 680 460" font-family="-apple-system,'PingFang SC','Microsoft YaHei',sans-serif">
+  <rect width="680" height="460" fill="#f7f7fb"/>
+  <rect x="0" y="0" width="680" height="44" fill="#ececf3"/>
+  <rect x="16" y="12" width="440" height="20" rx="10" fill="#fff" stroke="#d9d9e3"/>
+  <text x="30" y="26" font-size="13" fill="#5a5a72">app.netlify.com</text>
+  <text x="24" y="86" font-size="19" font-weight="700" fill="#1a1a2e">Add new site → Import an existing project</text>
+  <rect x="24" y="104" width="632" height="332" rx="14" fill="#fff" stroke="#e3e3ee"/>
+  <text x="48" y="138" font-size="14" fill="#5a5a72">1) Connect to Git provider：选 <tspan fill="#1a1a2e" font-weight="700">GitHub</tspan></text>
+  <rect x="48" y="150" width="150" height="34" rx="8" fill="#f3f3fa" stroke="#e3e3ee"/>
+  <text x="123" y="172" font-size="13" fill="#1a1a2e" text-anchor="middle">GitHub ▾</text>
+  <text x="48" y="216" font-size="14" fill="#5a5a72">2) Pick a repository：<tspan fill="#1a1a2e">chenyile-portfolio</tspan></text>
+  <text x="48" y="252" font-size="15" font-weight="700" fill="#1a1a2e">Build settings（构建设置）</text>
+  <text x="48" y="284" font-size="13" fill="#5a5a72">Build command（构建命令）</text>
+  <rect x="48" y="294" width="260" height="34" rx="8" fill="#fff" stroke="#d9d9e3"/>
+  <text x="62" y="316" font-size="12" fill="#b0b0bd">（留空，本项目无需构建）</text>
+  <text x="360" y="284" font-size="13" fill="#5a5a72">Publish directory（发布目录）</text>
+  <rect x="360" y="294" width="120" height="34" rx="8" fill="#fff" stroke="#6d5dfc"/>
+  <text x="378" y="316" font-size="14" fill="#1a1a2e" font-weight="700">/</text>
+  <text x="492" y="316" font-size="12" fill="#6d5dfc">★ 填 /</text>
+  <rect x="48" y="356" width="230" height="42" rx="8" fill="#6d5dfc"/>
+  <text x="163" y="382" font-size="14" font-weight="700" fill="#fff" text-anchor="middle">Deploy chenyile-portfolio</text>
+</svg>
