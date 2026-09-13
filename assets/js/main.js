@@ -299,13 +299,37 @@
     if (yr) yr.textContent = new Date().getFullYear();
   }
 
+  // 线上内容加载失败时，显示可见的红色警告条（避免无声回退到旧占位数据）
+  function showContentError(msg) {
+    var el = document.getElementById('content-error');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'content-error';
+      el.className = 'content-error';
+      el.setAttribute('role', 'alert');
+      var main = document.querySelector('main') || document.body;
+      main.insertBefore(el, main.firstChild);
+    }
+    el.textContent = '⚠️ 内容加载失败：content.json ' + msg +
+      '。请确认文件是 UTF-8 编码且为合法 JSON，再重新部署。';
+  }
+
   // ---------- 加载内容：优先 content.json（后台管理），失败回退 content.js ----------
   function load() {
     var fallback = window.SITE_CONTENT || null;
     fetch('content.json', { cache: 'no-store' })
-      .then(function (res) { return res.ok ? res.json() : Promise.reject(); })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
       .then(function (json) { render(json); })
-      .catch(function () { render(fallback); })
+      .catch(function (err) {
+        // 线上（非 file://）加载失败给出可见提示；本地双击预览才静默回退
+        if (location.protocol !== 'file:') {
+          showContentError((err && err.message) ? err.message : '解析出错');
+        }
+        render(fallback);
+      })
       .then(function () {
         var box = document.getElementById('guestbook-comments');
         if (box) loadGiscus(box, 'guestbook');
