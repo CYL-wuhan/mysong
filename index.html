@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="b">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>陈熠乐 · 创作集 | 音乐 · 绘画 · 游戏机制作品集</title>
+  <meta name="description" content="陈熠乐的个人作品集，收录日常音乐创作、绘画作品与游戏机制设计，附个人介绍、兴趣社介绍与留言板。" />
+  <link rel="canonical" href="https://your-domain.example.com/" />
+  <meta property="og:title" content="陈熠乐 · 创作集" />
+  <meta property="og:description" content="日常音乐与绘画创作作品集，附个人介绍与留言板。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/img/avatar.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- 浏览量统计：不蒜子 busuanzi（免费、零后端、无需注册） -->
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+</head>
+<body>
+  <!-- 风格切换器：打开页面即可对比三套主题 -->
+  <div class="theme-switch" role="group" aria-label="选择网站风格">
+    <button type="button" data-set-theme="a" aria-pressed="false">极简</button>
+    <button type="button" data-set-theme="b" aria-pressed="true">活力</button>
+    <button type="button" data-set-theme="c" aria-pressed="false">沉浸</button>
+  </div>
+
+  <!-- 顶部导航 -->
+  <header class="nav">
+    <div class="wrap">
+      <span class="brand">陈熠乐</span>
+      <nav aria-label="主导航">
+        <a href="#home">首页</a>
+        <a href="#about">关于我</a>
+        <a href="#music">音乐</a>
+        <a href="#gallery">绘画</a>
+        <a href="#games">游戏机制</a>
+        <a href="#guestbook">留言板</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero / 首页 -->
+    <section id="home" class="hero">
+      <div class="wrap">
+        <div>
+          <h1 id="hero-name">陈熠乐</h1>
+          <p id="hero-title" class="tagline">独立音乐人 · 绘画爱好者</p>
+          <p id="hero-tagline" class="tagline">用旋律记录情绪，用画笔留住光影。</p>
+          <div class="cta">
+            <a class="btn primary" href="#music">听我的歌</a>
+            <a class="btn ghost" href="#gallery">看我的画</a>
+            <a class="btn ghost" href="#games">看游戏机制</a>
+          </div>
+        </div>
+        <img id="hero-avatar" class="avatar" src="assets/img/avatar.svg" alt="陈熠乐 头像" width="320" height="320" />
+      </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="section about">
+      <div class="wrap">
+        <img id="about-avatar" class="about-avatar" src="assets/img/avatar.svg" alt="陈熠乐 头像" width="200" height="200" />
+        <div>
+          <h2 id="about-name">关于我</h2>
+          <p id="about-bio"></p>
+          <ul id="contacts" class="contacts"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 音乐作品 -->
+    <section id="music" class="section">
+      <div class="wrap">
+        <h2>音乐创作</h2>
+        <p class="lead">日常写下的歌与小样，随时更新。</p>
+        <div id="music-list" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- 绘画作品 -->
+    <section id="gallery" class="section">
+      <div class="wrap">
+        <h2>绘画作品</h2>
+        <p class="lead">水彩、速写与随手记录的光影。</p>
+        <div id="gallery-list" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- 游戏机制 -->
+    <section id="games" class="section">
+      <div class="wrap">
+        <h2>游戏机制</h2>
+        <p class="lead">学校兴趣社「游戏机制」的机制设计与作品，配图配文，持续更新。</p>
+        <div id="club"></div>
+        <div id="games-list" class="grid"></div>
+      </div>
+    </section>
+
+    <!-- 留言板 -->
+    <section id="guestbook" class="section guestbook">
+      <div class="wrap">
+        <h2>留言板</h2>
+        <p class="lead">欢迎在作品下或这里留言、点歌、唠嗑。需 GitHub 账号登录后评论。</p>
+        <div id="guestbook-comments" class="giscus-host"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span class="copyright">© <span id="year">2026</span> 陈熠乐 · 保留所有权利</span>
+      <span class="stats" aria-label="站点访问统计">
+        <span id="busuanzi_container_site_pv">总浏览 <b id="busuanzi_value_site_pv">0</b></span>
+        <span id="busuanzi_container_site_uv">访客 <b id="busuanzi_value_site_uv">0</b></span>
+      </span>
+    </div>
+  </footer>
+
+  <script src="assets/js/content.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

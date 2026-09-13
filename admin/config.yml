@@ -1,0 +1,104 @@
+# ============================================================
+#  Decap CMS 配置（网页后台 /admin）
+#  登录方式：Netlify Identity（部署到 Netlify 并开启 Identity 后自动生效）
+#  完整文档：https://decapcms.org/docs/
+# ============================================================
+
+backend:
+  name: netlify          # 用 Netlify 部署 + 开启 Identity 即可，无需自建 OAuth
+  branch: main           # 仓库默认分支（若是 master 请改成 master）
+
+# 媒体文件（图片 / 音频）上传后存放的位置
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+# 编辑的内容 = 单个 JSON 文件（与前端 content.json 对应）
+collections:
+  - name: "content"
+    label: "站点内容"
+    files:
+      - name: "site"
+        label: "全部内容（个人介绍 / 音乐 / 绘画）"
+        file: "content.json"
+        fields:
+          - name: "profile"
+            label: "个人介绍"
+            widget: "object"
+            fields:
+              - { name: "name", label: "姓名", widget: "string" }
+              - { name: "title", label: "头衔 / 身份", widget: "string" }
+              - { name: "tagline", label: "一句话标语", widget: "string" }
+              - { name: "bio", label: "自我介绍", widget: "text" }
+              - { name: "avatar", label: "头像", widget: "image" }
+              - name: "contacts"
+                label: "联系方式"
+                widget: "list"
+                field:
+                  name: "item"
+                  label: "联系方式"
+                  widget: "object"
+                  fields:
+                    - { name: "label", label: "名称", widget: "string" }
+                    - { name: "url", label: "链接", widget: "string" }
+
+          - name: "music"
+            label: "音乐作品"
+            widget: "list"
+            field:
+              name: "item"
+              label: "单曲"
+              widget: "object"
+              fields:
+                - { name: "title", label: "曲名", widget: "string" }
+                - { name: "date", label: "日期（如 2026-08）", widget: "string" }
+                - { name: "cover", label: "封面图", widget: "image" }
+                - { name: "src", label: "音频文件（mp3）", widget: "file" }
+                - { name: "description", label: "配文", widget: "text" }
+
+          - name: "paintings"
+            label: "绘画作品"
+            widget: "list"
+            field:
+              name: "item"
+              label: "作品"
+              widget: "object"
+              fields:
+                - { name: "title", label: "作品名", widget: "string" }
+                - { name: "date", label: "日期", widget: "string" }
+                - { name: "img", label: "图片", widget: "image" }
+                - { name: "medium", label: "材质 / 尺寸", widget: "string" }
+                - { name: "description", label: "配文", widget: "text" }
+
+          - name: "club"
+            label: "游戏机制 · 兴趣社介绍"
+            widget: "object"
+            fields:
+              - { name: "name", label: "兴趣社名称", widget: "string" }
+              - { name: "avatar", label: "社徽 / 头像", widget: "image" }
+              - { name: "tagline", label: "一句话标语", widget: "string" }
+              - { name: "bio", label: "兴趣社介绍", widget: "text" }
+              - name: "contacts"
+                label: "联系方式 / 招新"
+                widget: "list"
+                field:
+                  name: "item"
+                  label: "联系方式"
+                  widget: "object"
+                  fields:
+                    - { name: "label", label: "名称", widget: "string" }
+                    - { name: "url", label: "链接", widget: "string" }
+
+          - name: "gameMechanics"
+            label: "游戏机制作品"
+            widget: "list"
+            field:
+              name: "item"
+              label: "机制作品"
+              widget: "object"
+              fields:
+                - { name: "title", label: "作品名", widget: "string" }
+                - { name: "date", label: "日期", widget: "string" }
+                - { name: "type", label: "类型（如 桌游 / 解谜 / 互动装置）", widget: "string" }
+                - { name: "cover", label: "配图", widget: "image" }
+                - { name: "link", label: "玩法 / 试玩外链（可留空）", widget: "string" }
+                - { name: "description", label: "机制说明 / 配文", widget: "text" }
