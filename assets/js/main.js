@@ -133,7 +133,7 @@
     setText('#hero-tagline', p.tagline);
     var heroAvatar = $('#hero-avatar');
     if (heroAvatar) {
-      heroAvatar.src = p.avatar || 'assets/img/avatar.svg';
+      heroAvatar.src = p.avatar || 'assets/img/avatar.png';
       heroAvatar.alt = (p.name || '我') + ' 头像';
     }
 
@@ -141,7 +141,7 @@
     setText('#about-bio', p.bio);
     var aboutAvatar = $('#about-avatar');
     if (aboutAvatar) {
-      aboutAvatar.src = p.avatar || 'assets/img/avatar.svg';
+      aboutAvatar.src = p.avatar || 'assets/img/avatar.png';
       aboutAvatar.alt = (p.name || '我') + ' 头像';
     }
 
@@ -181,14 +181,24 @@
           '</article>'
         );
         var img = node.querySelector('.thumb');
-        if (img) img.src = m.cover || 'assets/img/painting-1.svg';
-         var slot = node.querySelector('.audio-slot');
+        if (img) img.src = m.cover || 'assets/img/painting-1.png';
+        var slot = node.querySelector('.audio-slot');
         if (slot) {
           if (m.src) {
-            var isVid = /\.(mp4|webm|mov|m4v|ogv)$/i.test(m.src);
-            var media = isVid ? document.createElement('video') : document.createElement('audio');
+            // MP4/WebM 等用 <video> 呈现（可带画面），其余用 <audio>
+            var isVid = isVideoFile(m.src);
+            var media = isVid
+              ? document.createElement('video')
+              : document.createElement('audio');
             media.controls = true;
-            media.preload = 'none';
+            // 视频：预载元数据即可显示首帧（faststart 后加载很快），并支持 iOS 内联播放
+            // 音频：不预载，省流量
+            media.preload = isVid ? 'metadata' : 'none';
+            if (isVid) {
+              media.setAttribute('playsinline', '');
+              media.setAttribute('webkit-playsinline', '');
+              media.setAttribute('poster', m.cover || 'assets/img/painting-2.png');
+            }
             media.src = m.src;
             media.setAttribute('aria-label', m.title + (isVid ? ' 观看' : ' 试听'));
             slot.appendChild(media);
@@ -224,7 +234,7 @@
           '</article>'
         );
         var img = node.querySelector('.thumb');
-        if (img) img.src = art.img || 'assets/img/painting-1.svg';
+        if (img) img.src = art.img || 'assets/img/painting-1.png';
         galWrap.appendChild(node);
         attachComments(node, 'painting::' + art.title);
       });
@@ -292,9 +302,97 @@
           '</article>'
         );
         var gimg = gnode.querySelector('.thumb');
-        if (gimg) gimg.src = g.cover || 'assets/img/painting-1.svg';
+        if (gimg) gimg.src = g.cover || 'assets/img/painting-1.png';
         gameWrap.appendChild(gnode);
         attachComments(gnode, 'game::' + g.title);
+      });
+    }
+
+    // 我的文字（牛皮纸风格卡片 + 可更换背景音乐）
+    var writWrap = $('#writings-list');
+    if (writWrap && isArr(data.writings)) {
+      writWrap.innerHTML = '';
+      data.writings.forEach(function (w) {
+        if (!w || !w.title) return;
+        var meta = [w.date].filter(Boolean).join(' · ');
+        var node = card(
+          '<article class="writing-card">' +
+            '<div class="writing-inner">' +
+              '<h3 class="writing-title"></h3>' +
+              (meta ? '<p class="writing-date">' + esc(meta) + '</p>' : '') +
+              '<div class="writing-body"></div>' +
+              '<button type="button" class="writing-expand" aria-expanded="false">展开 ▾</button>' +
+              '<div class="writing-bgm"></div>' +
+              '<button type="button" class="comment-toggle" aria-expanded="false" data-term="writing::' + esc(w.title) + '">💬 留言</button>' +
+              '<div class="comments" hidden></div>' +
+            '</div>' +
+          '</article>'
+        );
+        node.querySelector('.writing-title').textContent = w.title;
+
+        // 正文：按换行分段；以「章节」开头的行作为小节标题（h4）
+        // 默认只显示摘要（首段），点击「展开」才显示全文
+        function isChapter(line) { return /^章节|^第.{1,3}[章节]/.test(line.trim()); }
+        var rawLines = String(w.content || '').split('\n');
+        var paras = rawLines.filter(function (l) { return l.trim(); });
+        var buildFullHTML = function () {
+          return rawLines.map(function (line) {
+            if (!line.trim()) return '';
+            var txt = esc(line.trim());
+            return isChapter(line.trim())
+              ? '<h4 class="writing-subtitle">' + txt + '</h4>'
+              : '<p>' + txt + '</p>';
+          }).join('');
+        };
+        var firstContent = paras.filter(function (l) { return !isChapter(l.trim()); })[0] || paras[0] || '';
+        var summaryHTML = firstContent ? '<p>' + esc(firstContent) + '</p>' : '';
+        var fullHTML = buildFullHTML();
+
+        var body = node.querySelector('.writing-body');
+        var expandBtn = node.querySelector('.writing-expand');
+        var collapsed = true;
+        if (paras.length <= 1) {
+          // 仅单段内容，无需折叠
+          body.innerHTML = fullHTML;
+          if (expandBtn) expandBtn.remove();
+        } else {
+          body.innerHTML = summaryHTML;
+          expandBtn.addEventListener('click', function () {
+            collapsed = !collapsed;
+            body.innerHTML = collapsed ? summaryHTML : fullHTML;
+            expandBtn.setAttribute('aria-expanded', String(!collapsed));
+            expandBtn.textContent = collapsed ? '展开 ▾' : '收起 ▴';
+          });
+        }
+
+        // 背景音乐：作者通过 bgm 字段更换曲目；留空则不显示播放器
+        var bgmBox = node.querySelector('.writing-bgm');
+        if (bgmBox) {
+          if (w.bgm) {
+            var row = document.createElement('div');
+            row.className = 'bgm-row';
+            var label = document.createElement('span');
+            label.className = 'bgm-label';
+            label.textContent = '🎵 背景音乐';
+            var audio = document.createElement('audio');
+            audio.controls = true;
+            audio.preload = 'none';
+            audio.loop = true; // 背景音乐自动循环
+            audio.src = w.bgm;
+            audio.setAttribute('aria-label', w.title + ' 背景音乐');
+            row.appendChild(label);
+            row.appendChild(audio);
+            bgmBox.appendChild(row);
+          } else {
+            var note = document.createElement('p');
+            note.className = 'placeholder-note';
+            note.textContent = '未设置背景音乐：在后台「我的文字」里填 bgm 字段，或修改 content.json 的 bgm 即可更换。';
+            bgmBox.appendChild(note);
+          }
+        }
+
+        writWrap.appendChild(node);
+        attachComments(node, 'writing::' + w.title);
       });
     }
 

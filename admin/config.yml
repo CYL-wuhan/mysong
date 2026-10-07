@@ -102,3 +102,16 @@ collections:
                 - { name: "cover", label: "配图", widget: "image" }
                 - { name: "link", label: "玩法 / 试玩外链（可留空）", widget: "string" }
                 - { name: "description", label: "机制说明 / 配文", widget: "text" }
+
+          - name: "writings"
+            label: "我的文字"
+            widget: "list"
+            field:
+              name: "item"
+              label: "文字作品"
+              widget: "object"
+              fields:
+                - { name: "title", label: "标题", widget: "string" }
+                - { name: "date", label: "日期（如 2026-09）", widget: "string" }
+                - { name: "content", label: "正文（每行一段，可用换行分段）", widget: "text" }
+                - { name: "bgm", label: "背景音乐（音频文件，可留空）", widget: "file" }

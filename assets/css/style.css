@@ -299,3 +299,91 @@ footer .stats b { color: var(--accent); font-variant-numeric: tabular-nums; marg
   display: inline-block;
 }
 
+/* -------- 我的文字 · 牛皮纸背景 -------- */
+#writings .writings-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.writing-card {
+  border-radius: var(--radius);
+  border: 1px solid rgba(120, 90, 50, 0.28);
+  box-shadow: 0 12px 30px rgba(90, 60, 20, 0.18);
+  /* 温馨牛皮纸底色 + 内联 SVG 噪点纹理（无需外部图片） */
+  background-color: #e9d8b4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  color: #4a3520;
+  overflow: hidden;
+}
+.writing-inner { padding: 30px 34px 34px; }
+.writing-title {
+  margin: 0 0 4px;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: #3a2814;
+}
+.writing-date {
+  margin: 0 0 18px;
+  font-size: 13px;
+  color: #8a6a42;
+  letter-spacing: 0.04em;
+}
+.writing-body p { margin: 0 0 14px; line-height: 1.95; font-size: 1.02rem; }
+.writing-body p:last-child { margin-bottom: 0; }
+/* 小节标题（以「章节」开头的段落）：与正文体区分，像手稿里的章节名 */
+.writing-subtitle {
+  margin: 26px 0 12px;
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #3a2814;
+  padding-left: 12px;
+  border-left: 3px solid #b8895a;
+}
+.writing-subtitle:first-child { margin-top: 0; }
+.bgm-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px dashed rgba(120, 90, 50, 0.35);
+}
+.bgm-label { font-size: 14px; color: #6b4f2a; font-weight: 600; white-space: nowrap; }
+.writing-card audio { flex: 1; min-width: 220px; }
+.writing-card .comment-toggle {
+  background: rgba(255, 255, 255, 0.45);
+  border-color: rgba(120, 90, 50, 0.3);
+  color: #4a3520;
+}
+.writing-card .comment-toggle:hover { border-color: #8a6a42; }
+.writing-card .comment-toggle[aria-expanded="true"] {
+  background: #6b4f2a;
+  color: #fff;
+  border-color: #6b4f2a;
+}
+.writing-card .placeholder-note {
+  background: rgba(255, 255, 255, 0.4);
+  border-color: rgba(120, 90, 50, 0.3);
+  color: #6b4f2a;
+}
+
+.writing-expand {
+  display: inline-block;
+  margin: 6px 0 16px;
+  padding: 7px 20px;
+  font-size: 14px;
+  font-family: inherit;
+  color: #4a3520;
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(120, 90, 50, 0.35);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+.writing-expand:hover { background: rgba(255, 255, 255, 0.72); border-color: #8a6a42; }
+.writing-expand:focus-visible { outline: 2px solid #6b4f2a; outline-offset: 2px; }
+

@@ -137,7 +137,7 @@ npx serve .
 {
   title: "夜行列车",
   date: "2026-08",
-  cover: "assets/img/painting-1.svg",   // 封面图，可换成你自己的图
+  cover: "assets/img/painting-1.png",   // 封面图，可换成你自己的图
   src: "assets/audio/night-train.mp3",   // ★ 填刚才的文件路径
   description: "写于一次深夜的归途……"     // 配文
 }
