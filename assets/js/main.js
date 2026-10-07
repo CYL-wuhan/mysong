@@ -330,39 +330,104 @@
         );
         node.querySelector('.writing-title').textContent = w.title;
 
-        // 正文：按换行分段；以「章节」开头的行作为小节标题（h4）
-        // 默认只显示摘要（首段），点击「展开」才显示全文
-        function isChapter(line) { return /^章节|^第.{1,3}[章节]/.test(line.trim()); }
-        var rawLines = String(w.content || '').split('\n');
-        var paras = rawLines.filter(function (l) { return l.trim(); });
-        var buildFullHTML = function () {
-          return rawLines.map(function (line) {
-            if (!line.trim()) return '';
-            var txt = esc(line.trim());
-            return isChapter(line.trim())
-              ? '<h4 class="writing-subtitle">' + txt + '</h4>'
-              : '<p>' + txt + '</p>';
-          }).join('');
-        };
-        var firstContent = paras.filter(function (l) { return !isChapter(l.trim()); })[0] || paras[0] || '';
-        var summaryHTML = firstContent ? '<p>' + esc(firstContent) + '</p>' : '';
-        var fullHTML = buildFullHTML();
-
         var body = node.querySelector('.writing-body');
         var expandBtn = node.querySelector('.writing-expand');
         var collapsed = true;
-        if (paras.length <= 1) {
-          // 仅单段内容，无需折叠
-          body.innerHTML = fullHTML;
-          if (expandBtn) expandBtn.remove();
-        } else {
-          body.innerHTML = summaryHTML;
+
+        // 把一段纯文本渲染进卡片：默认只显示摘要（首段），点「展开」显示全文
+        // 以「章节」/「第X章」开头的行作为小节标题（h4）
+        function isChapter(line) { return /^章节|^第.{1,3}[章节]/.test(line.trim()); }
+        function renderBody(text) {
+          var rawLines = String(text || '').split('\n');
+          var paras = rawLines.filter(function (l) { return l.trim(); });
+          var fullHTML = rawLines.map(function (line) {
+            if (!line.trim()) return '';
+            var t = esc(line.trim());
+            return isChapter(line.trim())
+              ? '<h4 class="writing-subtitle">' + t + '</h4>'
+              : '<p>' + t + '</p>';
+          }).join('');
+          var firstContent = paras.filter(function (l) { return !isChapter(l.trim()); })[0] || paras[0] || '';
+          var summaryHTML = firstContent ? '<p>' + esc(firstContent) + '</p>' : '';
+
+          // 存进 data-* 供展开/收起按钮复用
+          body.setAttribute('data-full', fullHTML);
+          body.setAttribute('data-summary', summaryHTML);
+
+          collapsed = true;
+          if (paras.length <= 1) {
+            body.innerHTML = fullHTML;          // 仅单段，无需折叠
+            if (expandBtn) expandBtn.remove();
+          } else {
+            body.innerHTML = summaryHTML;
+            if (expandBtn) {
+              expandBtn.textContent = '展开 ▾';
+              expandBtn.setAttribute('aria-expanded', 'false');
+            }
+          }
+        }
+
+        // 展开/收起按钮（只绑一次；正文无论是内联还是异步加载都复用它）
+        if (expandBtn) {
           expandBtn.addEventListener('click', function () {
             collapsed = !collapsed;
-            body.innerHTML = collapsed ? summaryHTML : fullHTML;
+            body.innerHTML = collapsed
+              ? (body.getAttribute('data-summary') || '')
+              : (body.getAttribute('data-full') || '');
             expandBtn.setAttribute('aria-expanded', String(!collapsed));
             expandBtn.textContent = collapsed ? '展开 ▾' : '收起 ▴';
           });
+        }
+
+        // 正文来源优先级：file（外链 assets/txt/*.txt）> content（内联）
+        if (w.file) {
+          body.innerHTML = '<p class="placeholder-note">正文加载中…</p>';
+
+          // 依次尝试候选路径。Linux 服务器区分大小写，若目录被改名成 TXT/txt
+          // 会 404，这里自动回退另一种写法，避免整篇文字消失。
+          function altPaths(p) {
+            var list = [p];
+            // 目录段大小写互换（如 assets/txt/ ↔ assets/TXT/）
+            var m = String(p).match(/^(.*\/)([^\/]*)(\/[^\/]*)$/);
+            if (m) {
+              var dir = m[1], seg = m[2], file = m[3];
+              if (seg === 'txt') list.push(dir + 'TXT' + file);
+              else if (seg === 'TXT') list.push(dir + 'txt' + file);
+              else { list.push(dir + seg.toLowerCase() + file); list.push(dir + seg.toUpperCase() + file); }
+            }
+            // 扩展名互换（.txt ↔ .TXT）
+            list.push(String(p).replace(/\.txt$/i, function (s) { return s === s.toUpperCase() ? '.txt' : '.TXT'; }));
+            return list.filter(function (x, i, a) { return a.indexOf(x) === i; });
+          }
+
+          var candidates = altPaths(w.file);
+          var idx = 0;
+          function tryNext() {
+            if (idx >= candidates.length) throw new Error('所有候选路径均不可用');
+            var url = candidates[idx++];
+            return fetch(url, { cache: 'no-store' }).then(function (res) {
+              if (!res.ok) throw new Error('HTTP ' + res.status);
+              return res.text();
+            });
+          }
+
+          tryNext()
+            .then(function (txt) {
+              if (!txt || !txt.trim()) throw new Error('文件为空');
+              renderBody(txt);
+            })
+            .catch(function (err) {
+              // 外链失败则回退到 content 内联正文（若也没有，显示提示）
+              if (w.content && w.content.trim()) {
+                renderBody(w.content);
+              } else {
+                body.innerHTML = '<p class="placeholder-note">正文加载失败：' +
+                  esc(w.file) + '（' + esc((err && err.message) || '未知错误') +
+                  '）。请确认文件已上传且为 UTF-8 编码。</p>';
+              }
+            });
+        } else {
+          renderBody(w.content);
         }
 
         // 背景音乐：作者通过 bgm 字段更换曲目；留空则不显示播放器

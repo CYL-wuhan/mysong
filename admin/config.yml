@@ -113,5 +113,6 @@ collections:
               fields:
                 - { name: "title", label: "标题", widget: "string" }
                 - { name: "date", label: "日期（如 2026-09）", widget: "string" }
+                - { name: "file", label: "正文文件（上传 .txt，优先于下方正文框）", widget: "file" }
                 - { name: "content", label: "正文（每行一段，可用换行分段）", widget: "text" }
                 - { name: "bgm", label: "背景音乐（音频文件，可留空）", widget: "file" }
